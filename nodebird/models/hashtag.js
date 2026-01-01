@@ -1,14 +1,15 @@
-const sequelize = require("sequelize");
+const Sequelize = require("sequelize");
 
-class Hashtag extends sequelize.Model {
+class Hashtag extends Sequelize.Model {
   static initiate(sequelize) {
-    Hashtag.init({
-      title: {
-        type: sequelize.STRING(15),
-        allowNull: false,
-        unique: true,
+    Hashtag.init(
+      {
+        title: {
+          type: Sequelize.STRING(15),
+          allowNull: false,
+          unique: true,
+        },
       },
-    }),
       {
         sequelize,
         timestamps: true,
@@ -18,12 +19,12 @@ class Hashtag extends sequelize.Model {
         tableName: "hashtags",
         charset: "utf8mb4",
         collate: "utf8mb4_general_ci",
-      };
+      }
+    );
   }
 
   static associate(db) {
-    db.Post.belongsTo(db.User);
-    db.Post.belongsToMany(db.Hashtag, {
+    db.Hashtag.belongsToMany(db.Post, {
       through: "PostHashtag",
     });
   }

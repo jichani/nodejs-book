@@ -1,29 +1,29 @@
-const sequelize = require("sequelize");
+const Sequelize = require("sequelize");
 
-class User extends sequelize.Model {
+class User extends Sequelize.Model {
   static initiate(sequelize) {
     User.init(
       {
         email: {
-          type: sequelize.STRING(40),
+          type: Sequelize.STRING(40),
           allowNull: true,
           unique: true,
         },
         nick: {
-          type: sequelize.STRING(15),
+          type: Sequelize.STRING(15),
           allowNull: false,
         },
         password: {
-          type: sequelize.STRING(100),
+          type: Sequelize.STRING(100),
           allowNull: true,
         },
         provider: {
-          type: sequelize.ENUM("local", "kakao"),
+          type: Sequelize.ENUM("local", "kakao"),
           allowNull: false,
           defaultValue: "local",
         },
         snsId: {
-          type: sequelize.STRING(30),
+          type: Sequelize.STRING(30),
           allowNull: true,
         },
       },
