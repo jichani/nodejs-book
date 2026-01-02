@@ -11,6 +11,7 @@ dotenv.config(); // process.env 사용 가능
 
 const pageRouter = require("./routes/page");
 const authRouter = require("./routes/auth");
+const postRouter = require("./routes/post");
 const passportConfig = require("./passport");
 
 const app = express();
@@ -32,6 +33,7 @@ sequelize
 
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/img", express.static(path.join(__dirname, "uploads")));
 app.use(express.json()); // req.body를 ajax json 요청으로부터
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET)); // { connect.sid: 1232132333 }
@@ -52,6 +54,7 @@ app.use(passport.session()); // connect.sid라는 이름으로 세션 쿠키가 
 
 app.use("/", pageRouter);
 app.use("/auth", authRouter);
+app.use("/post", postRouter);
 
 app.use((req, res, next) => {
   // 404 처리 미들웨어
